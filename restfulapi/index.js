@@ -8,8 +8,8 @@ app.use(express.json());
 app.post('/characters', async (req, res) => {
     try {
         console.log(req.body);
-        const { name } = req.body;
-        const character = await pool.query("INSERT INTO characters (name) VALUES($1) RETURNING *", [name]);
+        const { name, house } = req.body;
+        const character = await pool.query("INSERT INTO characters (name, house) VALUES($1, $2) RETURNING *", [name, house]);
 
         res.json(character.rows[0]);
     } catch (err) {
