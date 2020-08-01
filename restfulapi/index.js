@@ -17,6 +17,17 @@ app.post('/characters', async (req, res) => {
     }
 })
 
+app.get('/characters', async (req, res) => {
+    try {
+        console.log(req.body);
+
+        const characters = await pool.query("SELECT * FROM characters");
+        res.json(characters.rows);
+    } catch (err) {
+        console.log(err.message);
+    }
+})
+
 
 app.listen(5000, function()  {
     console.log("Listening for requests on port 5000")
