@@ -28,6 +28,17 @@ app.get('/characters', async (req, res) => {
     }
 })
 
+app.get('/characters/:id', async (req, res) => {
+    try {
+       
+        const { id } = req.params;
+        const character = await pool.query("SELECT * FROM characters WHERE character_id = $1", [id]);
+        res.json(character.rows[0]);
+    } catch (err) {
+        console.log(err.message);
+    }
+})
+
 
 app.listen(5000, function()  {
     console.log("Listening for requests on port 5000")
