@@ -50,6 +50,17 @@ app.delete('/characters/:id', async (req, res) => {
     }
 })
 
+app.put('/characters/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { name } = req.body;
+        const character = await pool.query("UPDATE characters SET name = $1 WHERE character_id = $2", [name, id]);
+        res.json("Information edited")
+    } catch (err) {
+        console.error(err.message)
+    }
+});
+
 
 app.listen(5000, function()  {
     console.log("Listening for requests on port 5000")
